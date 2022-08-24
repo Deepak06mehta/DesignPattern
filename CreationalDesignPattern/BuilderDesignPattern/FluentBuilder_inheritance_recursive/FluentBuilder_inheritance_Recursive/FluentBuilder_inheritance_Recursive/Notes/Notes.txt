@@ -1,0 +1,208 @@
+﻿All right, so now we're going to take a look at what happens when builders inherit from other builders,
+and the answer is that nothing particularly scary happens.
+But if your builders use the fluent interface approach, then you're in real trouble and there is no
+easy way to mitigate the inheritance of affluent interfaces.
+But we're going to do it anyway.
+We're going to do it using recursive generics.
+It's a fairly well-known approach to getting fluent interfaces to actually inherit.
+So let's take a look at the problem.
+So the problem is as follows.
+Let's suppose we have a class called Person where we have, for example, the person's name that we're
+going to build up, as well as some employment information, maybe the position of the person working
+at a company.
+So I'm going to generate the two string implementations that we can print that person and then let's
+imagine that we have to build it.
+So the first builder is the one that just builds up the personal info.
+So I'm going to call this one person info builder, and this one is just going to build up the name.
+Now, I'll also have the person itself, so we'll have protected person person.
+That's the object that we're actually building up.
+Notice it's protected and not private.
+And the reason for that is we're using inheritance.
+All right.
+So what we're going to do is we're going to have a fluid method which is going to allow us to specify
+the name.
+So it's going to be public person, info builder.
+And I will call this method called which takes a name and assigns the name to the person.
+So we say person name equals name, and then we return this.
+Now, this is a classic fluent builder approach.
+And there was absolutely no problem with the code that we've got so far, so long as we don't start
+inheriting from it.
+And that's exactly what we're going to be doing, unfortunately.
+So we're going to be we're going to imagine the situation that later on you have another business requirement.
+You have to have a builder which has all of this functionality here, but also additional functionality.
+And let's imagine that you decide to follow the open closed principle and not actually modify the existing
+builder.
+You decide to use inheritance instead.
+So you make a new class called, for example, person job builder.
+And this class you decide to inherit from person info builder, which seems like a good idea because,
+I mean, you do inheritance and you get automatically get all of the functionality of person info builder
+inside person jobholder.
+So it seems like a pretty good deal.
+So what you do is you add an additional piece of fluent API.
+You have a public person, job builder works as a and specify the position.
+So here we specify the person's position.
+We say person dot position equals position.
+We return this and this feels like something that we can actually start using.
+So you might want to try this one out.
+So we're going to give you a person, job builder, like so make a variable called a builder, OK?
+And then we're going to try initializing the person.
+So I'm going to say builder Dot called so I can specify the person's name.
+That's my name.
+And then I want to specify works as a but I can't.
+Why can't I do this?
+What is the problem.
+I mean I thought I was making a fluent interface here with inheritance.
+Why is it not working?
+The reason it's not working is because when you call the cold method, you return a person info builder
+and person info builder doesn't know anything about works as a because it's not part of its inheritance
+hierarchy.
+Personal info builder just gives you a an interface to the person info builder.
+So clearly the problem with the inheritance of fluent interfaces is you're not allowed to use the containing
+type as the return type.
+It makes no sense because if you were to do this, then eventually, as soon as somebody calls this
+method, you're degrading your builder from a person, job builder to a person info builder.
+That's that's just not good.
+That's just not a good thing.
+That's not something that you want to do.
+So what we need to do is we need to replace this and we need to replace this thing here with something
+more sophisticated, something more advanced.
+Now, one question you might ask is, how can a derived class propagate the information about the return
+type to its own base class?
+And how can we actually do this recursively?
+How can we do this infinitely?
+Imagine you have five inherits as one inheriting from another.
+How can we do this?
+And the answer is recursive generics.
+So let's implement recursive generics on a fluid builder.
+And now the first thing I'm going to do is I'll make an abstract class.
+Let's call it person builder because I want to take all the common information.
+I want to put it into this abstract class.
+So I'm going to stick the actual constructed object here.
+And I will also have some public method which returns a person called Build, Build like so which just
+returns the person.
+So we're going to have this nice kind of API to work with.
+Now, here is the problem.
+We have the problem that we need some sort of return type here.
+But this return type has to refer not to the current object, this, but the kind of this that you get
+through inheritance.
+So it could be a person, job builder, for example, someone.
+You do well, you stick it as a generic argument, and I'm going to call itself because it's a self-referential
+relationship effectively, so here we are going to return south.
+OK, now, the problem with this approach, of course, is somebody could go ahead and stick an integer
+in here or a list of integers or something else entirely.
+And in this case, casting this to that object wouldn't make sense.
+So what we would need to first of all, do is put some sort of restriction.
+And by the way, this has to inherit from person builder, obviously.
+Otherwise you just cannot build build up the person because it's not there.
+But we need to restrict myself because otherwise somebody is going to stick something inappropriate
+in here.
+We want to restrict myself to the inheritors of person info, builder of self.
+So we're going to say self aware self inherits from person info, builder of self.
+Now, you might say, well, hold on this.
+This makes absolutely no sense.
+You have an argument and you were expecting that argument to inherit from the current object.
+How can this possibly be?
+I mean, you can see that this is still highlighted in red here.
+So how can this possibly be?
+Well, there are only one situation that we're allowing is we're allowing a situation where self actually
+refers to the object inheriting from this object.
+So were you going to have is you going to have a situation with lots of classes, for example, FOO,
+which inherits from bar of Foo.
+So in this case, the self argument, the self generic argument actually refers to the class that's
+actually doing the inheritance.
+So if you have Foo, then you need to specify Foo as the argument to self.
+And that's precisely why we have this constraint where self inherits from person info builder.
+So your drive class is going to derive from person input builder.
+So by definition that's going to derive from person info builder of self.
+And as a consequence of this you're going to be able to actually cast this even though once again,
+both the compiler as well as re schopper or writer in this case, they disagree.
+I'm just going to cast this manually.
+I know that this will work in all of the cases.
+So let's get rid of this.
+Now, we have a second builder and once again, we can no longer just inherit from a person info builder.
+It has to be a person info builder of a person, job builder like so.
+But it gets even more interesting because at some point in time you might want to start inheriting from
+person job builder as well.
+And if you have it in this in this kind of scenario, you're not going to be able to do this because
+in this scenario, what you're going to have is you going to have person job builder here.
+And we have agreed that this is a bad idea.
+We've agreed that we're not going to do this like ever.
+So once again, we're doing the same thing that we're doing in the personal info builder class.
+We're specifying a generic argument called self, and we're putting a constraint on it.
+So we're going to say we're self inherits from a person, job builder.
+OK, so this part is particularly easy and provided I get the spelling right, but now this thing gets
+modified because it's not just a person job builder in here, it's a person job builder of self.
+So you can see that as you go ahead and you inherit builders from other builders.
+This derived line is just going to get really long.
+It's going to be a big list of types or what's called a type list in languages such as C++, a fairly
+common occurrence, by the way.
+And once again, we return self from this method and once again, we cast this to self.
+So that's pretty much it.
+What we've now done is we've made every single one of the builders.
+So this builder and this builder, we made these builders amenable to inheritance.
+So now they support inheritance and they're going to support the idea of a fluent interface that actually
+gets inherited and that returns the right thing.
+So now what remains for us to do is to actually try this all out and I'm going to try it out by going
+into the person class and adding an API, which actually allows us to initialize a new person.
+Now, remember, you cannot go ahead and initialize a person, job builder.
+You cannot just say something like a new person, job builder, because it is entirely unclear what
+you would stick in here.
+What would you stick in here?
+This has to be something you inherits from person job builder.
+And I mean, if you stick programming here, program doesn't inherit from person job builder.
+So that makes absolutely no sense.
+As a result, what you do is you make additional time.
+So for example, if a person wants to expose its own builder, we would make a class here.
+We would make a class called Just Builder, for example.
+I could make a class builder and I could say this is going to inherit from person job builder of builder.
+So notice once again the recursive generic approach.
+So we are passing the type as a generic argument to the base class.
+And then what we can do is we can expose this builder.
+So for example, I can have a public property.
+Public static builder new.
+Have a property called new, and every time you get a new, you try to construct a new person.
+It gives you a new builder.
+There you go.
+That's that's all that we're going to do here.
+And now you can try to make sure that the builder isn't accessible from the outside, but it's very
+difficult to control effectively.
+So you can make the builder into a..
+You can give it in its constructor, but you cannot go ahead and make it private because it's obviously
+being exposed through the API.
+So you kind of just a private builder like.
+So that's not going to work, unfortunately.
+So let's just leave it as is for now.
+And let's take a look at how this is actually used.
+So now what I'm going to do if I want to construct a person using a fluent inherited builder API, I'm
+going to say person new.
+So that gets me a new builder.
+And I can say that this is this person is called Dimitri Demitri, like so and then I'm going to do
+a dot here and I can say works as a and I can specify one, for example, and I can actually build the
+object and turn it into turn it into a person.
+So I say me and that's actually let's print out me just to see that it works.
+So I'm going to run the application, we're going to see it working.
+And then I'm just going to go through this once again because it's not a particularly intuitive thing
+to do.
+So here is the output name Demitry Position Cuonzo.
+We're getting the right results here.
+Now let's once again think about what's happening here.
+So previously what happened when we used the cold method is the cold method actually returned he person
+info builder.
+But now it's no longer doing that.
+It's no longer returning a personal info builder.
+And in actual fact, what's happening here is if you if I just get rid of it like this and I make a
+variable here, let's make a variable percentage.
+If we specify explicitly what the type of that variable is, you can see that it's a person, job builder
+of a person builder.
+So it's the right thing.
+It's a person job builder, even though it might look as though inside the person info builder, you
+would be returning a person if a builder.
+That's absolutely not the case because we're propagating the information throughout the entire inheritance
+chain.
+We are actually always getting the most derived kind of type.
+And as a result, the entire chain of fluent interfaces is always available to us, which is what we
+wanted in the first place.
+So the take away from this example is that inheriting fluent interfaces is difficult and then requires
+you to make generic classes.
+But if you do, then it becomes more or less OK, shall we say?
+
