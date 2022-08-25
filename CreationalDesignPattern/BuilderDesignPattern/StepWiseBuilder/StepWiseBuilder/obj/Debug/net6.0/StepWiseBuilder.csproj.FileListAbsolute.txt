@@ -1,0 +1,15 @@
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/bin/Debug/net6.0/StepWiseBuilder
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/bin/Debug/net6.0/StepWiseBuilder.deps.json
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/bin/Debug/net6.0/StepWiseBuilder.runtimeconfig.json
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/bin/Debug/net6.0/StepWiseBuilder.dll
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/bin/Debug/net6.0/StepWiseBuilder.pdb
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/obj/Debug/net6.0/StepWiseBuilder.csproj.AssemblyReference.cache
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/obj/Debug/net6.0/StepWiseBuilder.GeneratedMSBuildEditorConfig.editorconfig
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/obj/Debug/net6.0/StepWiseBuilder.AssemblyInfoInputs.cache
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/obj/Debug/net6.0/StepWiseBuilder.AssemblyInfo.cs
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/obj/Debug/net6.0/StepWiseBuilder.csproj.CoreCompileInputs.cache
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/obj/Debug/net6.0/StepWiseBuilder.dll
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/obj/Debug/net6.0/refint/StepWiseBuilder.dll
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/obj/Debug/net6.0/StepWiseBuilder.pdb
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/obj/Debug/net6.0/StepWiseBuilder.genruntimeconfig.cache
+/Users/deepakmehta/Projects/REPOSITORIES/DesignPattern/CreationalDesignPattern/BuilderDesignPattern/StepWiseBuilder/StepWiseBuilder/obj/Debug/net6.0/ref/StepWiseBuilder.dll

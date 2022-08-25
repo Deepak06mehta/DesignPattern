@@ -1,4 +1,28 @@
 ﻿<Properties StartupConfiguration="{4CC806C1-F482-4C99-8914-A8D934179397}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.FluentBuilder__inheritance__Recursive FirstBuild="True" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="FluentBuilder_inheritance_Recursive/Program.cs">
+    <Files>
+      <File FileName="FluentBuilder_inheritance_Recursive/Program.cs" Line="84" Column="33" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="FluentBuilder_inheritance_Recursive" expanded="True" selected="True">
+            <Node name="FluentBuilder_inheritance_Recursive" expanded="True">
+              <Node name="Notes" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.FluentBuilder__inheritance__Recursive PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

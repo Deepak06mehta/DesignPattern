@@ -1,0 +1,125 @@
+﻿So one of the questions you might have is how do you actually get the builder to perform a set of steps
+one after another in a specific order?
+And there is a really neat solution to this that we're going to take a look at right now.
+So, once again, I'm going to have a very simple example.
+We're going to have a class called car and the car is going to have a car type as well as a wheel size.
+So we'll have an enum, let's call it car, type it public.
+So a car might be a sedan.
+All right.
+Crossover crossovers are the most popular, I think, type of car right now.
+And so we'll have public car type type and we'll also have the wheel size.
+Now, we're going to assume that depending on the car type, you can only select a certain wheel size.
+So, for example, if your car is a sedan, you can select the wheel size from, let's say, 15 to 17
+inches.
+Whereas if your car is a crossover, then you have more leeway.
+You can select a wheel from 17 to 20 inches.
+So this means that if you want to use a builder to construct the car, you have to construct it in a
+specific order.
+You, first of all, have to specify the type and then when you know the type, you can actually specify
+the wheel size and maybe apply some of the validation stuff.
+So the question is, how do you make a builder which actually gets, first of all, the type and then
+lets us specify the real size and perform some validation?
+The answer is that we're going to leverage one of the principles we've talked about in this course,
+which is the interface segregation principle.
+So we're going to return one interface for configuring and car type.
+We're going to return yet another interface for setting the wheel size, and we'll return a third interface
+for actually building the car.
+So before we do anything, we're going to define all those three interfaces.
+So first of all, we'll have an interface called I Specify Car Type.
+This is where you specify the type of car and move on to specifying the wheel size.
+Then you'll have another interface called I Specify Wheel Size, where you specify the wheel size and
+you are ready to build the car.
+And finally, we'll have a third interface called I Build a Car.
+That's when you're ready to build the car and you can actually make one.
+So starting from the end in I build the car, we return the car from a method called build.
+Now in I specify a wheel size.
+We return that I build the car.
+So here we would return.
+I built a car with wheels and we would specify the size of those wheels.
+And of course, in order to arrive here at the wheel size specification, we first of all has to specify
+the car type.
+So here we say I specify we all size of type, car type should be an O of type car type type like.
+So OK, now we have to take this load because it's rather complicated.
+So we start out with this interface where we specify the car type.
+When we specified we return a different interface, I specify wheel size, which has this method.
+Then we return and build a car which has this method, and then we return the actual car.
+So now we can have a class called Car Builder and we need to start somewhere.
+So maybe you call car builder DOT Create.
+So we'll have a static method called create, which starts by specifying the car type create.
+You have to go.
+OK, now the question is, what do we return here?
+Now we could return this class car builder and just implement all the three methods.
+Unfortunately, this class is public, which means that those methods would be inevitable in whatever
+order you wish.
+You just have to provide the right interface as an argument.
+So so you could make a call builder and just just call things arbitrarily, which is not what we want.
+So instead, what we're going to do is we're going to have a private implementation class, kind of
+similar to the simple idiom in C++.
+We'll have a private class called EMPL.
+And the symbol class is the one that's going to implement all three of those interfaces.
+So we'll have I specify carti, I specify we'll size and I build car.
+There we go.
+I'm going to just add all the implementations with default members.
+So now when we start out with the creation of the car, we return and you invoke and notice that we
+return.
+Oh, that didn't work.
+Well, let me redo that a couple of times.
+I don't know what the Edem did here, but we return empl.
+But it's simple.
+Casta an.
+I specify car type, and now we have these three methods that we need to actually fill in, so when
+setting the car type, we say what we first of all have to have an object that we're building up somewhere.
+A private car car equals new car.
+So that's what we're going to build up here.
+We say car type equals type.
+Once again, that should be Acaba.
+We'll see.
+And then we return this.
+But once again this is a kind of segmented this, so we returned this, but we're not returning a car
+builder.
+Instead we're were an I specify wheel size which of course car builder implements because it's right
+here.
+So it's the Imbo class cast to an unspecified wheel size.
+And here, when it comes to it with wheels, this is where we can take a look at the car type and perform
+some validation.
+So, for example, let me just grab a piece of code and paste it in here so we can say that if the wheels
+fall outside of the expected parameters, then we can throw an exception, for example.
+And if that went OK, if we didn't go outside the bounds, then we can set the wheel size equal size
+and we can once again return this and this time round.
+This is cast to an eye built car.
+So the only thing the client can invoke once we return, this is this method we just called build and
+here we simply return the car.
+So we now have our builder and we have a way of enforcing the order of execution.
+So going into Main, what we can do is we can save our car equals and then we take car builder.
+And first of all, we can only create there is no other method for us to call because that's the only
+static method.
+Then the only thing we can call is off type where we specify the type of the car that crossover, then
+the only method we can call is with wheels where we specify the diameter.
+And finally, the only method that we can call here is build.
+That's the only thing that we can call because remember, these things are typed to interfaces.
+So for example, when you call create, what you get effectively is you get an I specify car type.
+Then when you call off type, the thing you get is I specify wheel size.
+And finally, when you call with wheels, the only thing you get is I build a car.
+So as you can see, every single step that we invoke here, we only get one method that we can actually
+invoke to continue the chain of execution and build the object only in the order that the IP creator
+has enforced.
+So this is how you get to make a builder, which actually follows a particular order.
+And there are, of course, different implementations here, a different possibility.
+So, for example, if you don't like this private empl class, then one way to have the builder private
+is, of course, to put the builder inside the car itself, thereby tightly coupling the builder to
+the object being built.
+If you're okay with that, then there is no need for the middle class.
+The only reason we have it here is because we want something that is private, that is never exposed
+in a public way, that doesn't allow people to actually mess about with it or even be aware of the fact
+that it exists.
+But as always, there are other solutions to this problem.
+Ultimately, what we've done is a bit of a trick.
+We've split the interface into several interfaces which follow one after another.
+So you'll notice there is a pattern here.
+So when you call create from here, you go to I specify car type.
+And then the only method here returns.
+I specify will size you get in here, you can only go with wheels which are inside both car.
+You get in here and here you can only build.
+So it's a chain that is enforced through a set of interfaces, which I think is a really neat trick
+to implementing a builder, which acts as a kind of wizard that guides you through the process of building
+something in a very specific order.
