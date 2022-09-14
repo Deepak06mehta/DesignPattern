@@ -76,6 +76,7 @@ namespace StepWiseBuilder
                       .OfType(CarType.Crossover)
                       .WithWheels(18)
                       .Build();
+
             Console.WriteLine(car);
 
         }
